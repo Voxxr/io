@@ -1,15 +1,14 @@
-# [file-purger](https://github.com/Voxxr/io/blob/develop/file-purge) 
+# [File Purger](https://github.com/Voxxr/io/blob/develop/file-purge) 
 [![Apache License V.2](https://img.shields.io/badge/license-Apache%20V.2-blue.svg)](https://github.com/Voxxr/io/blob/develop/file-purge/LICENSE)
 
-Lightweight logging framework for Kotlin, written in [![Pure Kotlin](https://img.shields.io/badge/100%25-kotlin-blue.svg)](https://kotlinlang.org/).  
-A convenient and performant logging library wrapping [slf4j](http://www.slf4j.org/) with Kotlin extensions.
+Lightweight file purge scheduling library for [Spring](https://spring.io), written in [![Pure Kotlin](https://img.shields.io/badge/100%25-kotlin-blue.svg)](https://kotlinlang.org/).  
 
 
 ## Getting Started
 
 ---
 
-#### Call log methods, without checking whether the respective log level is enabled
+#### Schedule the purge of a file, 5 days in the future
 ```Kotlin
  purger.schedule(ScheduledPurgeRequest(File("some-file.txt"), LocalDateTime.now().plusDays(5)))
 ```
@@ -55,16 +54,12 @@ An `Android` example project with kotlin-logging can be found in [kotlin-logging
 
 ## Download
 
-**Important note:** kotlin-logging depends on slf4j-api (in the JVM artifact). In runtime, it is also required to depend on a logging implementation. More details in [how-to-configure-slf4j](http://saltnlight5.blogspot.co.il/2013/08/how-to-configure-slf4j-with-different.html). And an excellent detailed explanation in [a-guide-to-logging-in-java](https://www.marcobehler.com/guides/a-guide-to-logging-in-java).  
-
-In short, if you just want to log statements to stdout, it's possible to add the following dependency: `org.slf4j:slf4j-simple:1.7.29`.
-
 ### Maven
 ```xml
 <dependency>
-  <groupId>io.github.microutils</groupId>
-  <artifactId>kotlin-logging-jvm</artifactId>
-  <version>2.1.20</version>
+  <groupId>com.voxxr.io</groupId>
+  <artifactId>io-file-purge</artifactId>
+  <version>1.0.0</version>
 </dependency>
 ```
 See the full example in [kotlin-logging-example-maven](https://github.com/MicroUtils/kotlin-logging-example-maven).  
