@@ -1,12 +1,17 @@
-# <img height="30" width="30" alt="kotlin-logging" src="https://raw.githubusercontent.com/MicroUtils/kotlin-logging/master/misc/images/kotlin-logging.png"> [file-purger](https://github.com/MicroUtils/kotlin-logging) 
+# [file-purger](https://github.com/Voxxr/io/blob/develop/file-purge) 
 [![Apache License V.2](https://img.shields.io/badge/license-Apache%20V.2-blue.svg)](https://github.com/Voxxr/io/blob/develop/file-purge/LICENSE)
 
 Lightweight logging framework for Kotlin, written in [![Pure Kotlin](https://img.shields.io/badge/100%25-kotlin-blue.svg)](https://kotlinlang.org/).  
 A convenient and performant logging library wrapping [slf4j](http://www.slf4j.org/) with Kotlin extensions.
 
+
+## Getting Started
+
+---
+
 #### Call log methods, without checking whether the respective log level is enabled
 ```Kotlin
-logger.debug { "Some $expensive message!" }
+ purger.schedule(ScheduledPurgeRequest(File("some-file.txt"), LocalDateTime.now().plusDays(5)))
 ```
 
 Behind the scenes the expensive message do not get evaluated if debug is not enabled:

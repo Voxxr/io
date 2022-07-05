@@ -16,7 +16,6 @@ class ScheduleHandlerSet(
     private val handlers: Set<ScheduleHandler<FilePurgeRequest>> = emptySet(),
 ) : ForwardingSet<ScheduleHandler<FilePurgeRequest>>(), ScheduleHandler<FilePurgeRequest> {
 
-
     override fun handles(request: FilePurgeRequest) = true
 
     override fun schedule(
