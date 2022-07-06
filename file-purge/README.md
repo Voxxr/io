@@ -4,50 +4,33 @@
 Lightweight file purge scheduling library for [Spring](https://spring.io), written in [![Pure Kotlin](https://img.shields.io/badge/100%25-kotlin-blue.svg)](https://kotlinlang.org/).  
 
 
-## Getting Started
-
----
-
-#### Schedule the purge of a file, 5 days in the future
+#### Quick example: scheduling the purge of a file, 5 days in the future
 ```Kotlin
  purger.schedule(ScheduledPurgeRequest(File("some-file.txt"), LocalDateTime.now().plusDays(5)))
 ```
 
-Behind the scenes the expensive message do not get evaluated if debug is not enabled:
+#### Quick example: watch a directory and purge it when it becomes empty. If the directory does not become empty by the expiration date, force purge it anyway
 ```Kotlin
-// This is what happens when you write the above ^^^
-if (logger.isDebugEnabled) logger.debug("Some $expensive message!")
+ purger.schedule(PurgeWhenEmptyRequest(path, LocalDateTime.now().plusDays(5), force = true))
 ```
 
-#### Define the logger, without explicitly specifiying the class name
-```Kotlin
-// Place definition above class declaration to make field static
-private val logger = KotlinLogging.logger {}
-```
-
-Behind the scenes `val logger` will be created in the class, with the class/file name:
-```Kotlin
-// This is what happens when you write the above ^^^
-val logger = LoggerFactory.getLogger("package.ClassName")
-```
-
-#### Log exceptions in a Kotlin-style
-```Kotlin
-// exception as first parameter with message as lambda
-logger.error(exception) { "a $fancy message about the $exception" }
-```
 
 ## Getting started
  
 ```Kotlin
-import mu.KotlinLogging
-private val logger = KotlinLogging.logger {} 
-class FooWithLogging {
-    val message = "world"
+
+ import org.springframework.stereotype.Service
+ import com.voxxr.io.file.purge.FilePurger
+ import java.time.LocalDateTime
+ 
+ @Service
+ class Foo(private val purger: FilePurger) {
     fun bar() {
-        logger.debug { "hello $message" }
+        val file = File("some-file.txt")
+        val date = LocalDateTime.now().plusDays(5)
+        purger.schedule(ScheduledPurgeRequest(file, date))
     }
-}
+ }
 ```
 
 An `Android` example project with kotlin-logging can be found in [kotlin-logging-example-android](https://github.com/MicroUtils/kotlin-logging-example-android).
@@ -71,10 +54,6 @@ implementation 'io.github.microutils:kotlin-logging-jvm:2.1.20'
 
 Alternatively, download the JAR from [github](https://github.com/MicroUtils/kotlin-logging/releases/latest) or [bintray](https://dl.bintray.com/microutils/kotlin-logging/io/github/microutils/kotlin-logging/) or [maven-central](http://repo1.maven.org/maven2/io/github/microutils/kotlin-logging/).
 
-### Multiplatform
-
-An experimental common & JS & linux-x64 support is available.  
-More information is available on the [wiki](https://github.com/MicroUtils/kotlin-logging/wiki/Multiplatform-support) and issues [#21](https://github.com/MicroUtils/kotlin-logging/issues/21) [#45](https://github.com/MicroUtils/kotlin-logging/issues/45).
 
 ## Overview
 
